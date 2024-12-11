@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUP Hymn</title>]"
+    <link rel="icon" href="puplogo.png" type="image/png"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #eee8e8 0%, #b91717 100%);
+            color: #ffffff;
+            height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            background-color: #800000;
+            color: #ffffff;
+            padding: 10px 0;
+        }
+        .logo {
+            width: 100px;
+            margin-left: 10px;
+        }
+
+        .headertext {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 24px;
+            margin-left: 10px;
+        }
+        .hymn-container {
+            position: relative;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            height: 200px;
+            overflow: hidden;
+        }
+        #hymnText {
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            text-align: center;
+        }
+        audio {
+            margin-top: 20px;
+        }
+
+        .footer {
+            background-color: #400000;
+            color: #ffffff;
+            padding: 15px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="PUPlogo.png" alt="PUP Logo" class="logo">
+        <div class="headertext">POLYTECHNIC UNIVERSITY OF THE PHILIPPINES</div>
+    </header>
+        <h1>PUP Hymn</h1>
+    <div class="hymn-container">
+        <div id="hymnText">
+            <p>Sintang Paaralan</p>
+            <p>Tanglaw ka ng bayan</p>
+            <p>Pandayan ng isip ng kabataan</p>
+            <p>Kami ay dumating nang salat sa yaman</p>
+            <p>Hanap na dunong ay iyong alay</p>
+            <p>Ang layunin mong makatao</p>
+            <p>Dinarangal ang Pilipino</p>
+            <p>Ang iyong aral, diwa, adhikang taglay</p>
+            <p>PUP, aming gabay</p>
+            <p>Paaralang dakila</p>
+            <p>PUP, pinagpala</p>
+            <p>Gagamitin ang karunungan</p>
+            <p>Mula sa iyo, para sa bayan</p>
+            <p>Ang iyong aral, diwa, adhikang taglay</p>
+            <p>PUP, aming gabay</p>
+            <p>Paaralang dakila</p>
+            <p>PUP, pinagpala</p>
+        </div>
+    </div>
+    <audio id="hymnAudio" controls autoplay>
+        <source src="puphymn.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+     <div class="footer">
+        <p>&copy; 2024 Polytechnic University of the Philippines</p>
+    </div>
+    <script>
+        const hymnText = document.getElementById('hymnText');
+        const hymnAudio = document.getElementById('hymnAudio');
+        const containerHeight = document.querySelector('.hymn-container').offsetHeight;
+
+        hymnAudio.addEventListener('loadedmetadata', () => {
+            const duration = hymnAudio.duration;
+
+            // Calculate the total scroll distance
+            const textHeight = hymnText.offsetHeight;
+            const totalScrollDistance = textHeight + containerHeight;
+
+            // Sync scrolling with audio playback
+            hymnAudio.addEventListener('timeupdate', () => {
+                const progress = hymnAudio.currentTime / duration;
+                const currentScrollPosition = 100 - progress * (totalScrollDistance / containerHeight) * 100;
+                hymnText.style.top = `${currentScrollPosition}%`;
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PUP Hymn</title>
+    <link rel="icon" href="puplogo.png" type="image/png">
+    <style>
+        .titlehymn {
+            text-align: center;
+            font-size: 50px;
+            color: rgb(174, 16, 16);
+            margin-top: 15px;
+            padding: 40px;
+        }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: white;
+            color: #ffffff;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            background-image: url('large_pup.png');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center; 
+            color: #ffffff;
+            padding: 10px 0;
+        }
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(242, 242, 242, 0.6);
+            z-index: -1;
+        }   
+        .logo {
+            width: 100px;
+            margin-left: 10px;
+        }
+
+        .headertext {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 30px;
+            margin-left: 10px;
+        }
+        .hymn-container {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 30px;
+            position: relative;
+            margin: 50px auto;
+            background: linear-gradient(to bottom,#A44848,#B66D6D,#C89191,#DAB6B6,#ECDADA);
+            color: #000000;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            height: 500px;
+            overflow: hidden;
+        }
+        #hymnlyrics {
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            text-align: center;
+        }
+
+        audio {
+            margin-top: 20px;
+            opacity: 0.80;
+        }
+
+        .footer {
+            background-color: #800000;
+            color: #ffffff;
+            padding: 15px 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="PUPlogo.png" alt="PUP Logo" class="logo">
+        <div class="headertext">POLYTECHNIC UNIVERSITY OF THE PHILIPPINES</div>
+    </header>
+    <h1 class="titlehymn">PUP Hymn</h1>
+    <div class="hymn-container">
+        <div id="hymnlyrics">
+            <p>Sintang Paaralan</p>
+            <p>Tanglaw ka ng bayan</p>
+            <p>Pandayan ng isip ng kabataan</p>
+            <p>Kami ay dumating nang salat sa yaman</p>
+            <p>Hanap na dunong ay iyong alay</p>
+            <p>Ang layunin mong makatao</p>
+            <p>Dinarangal ang Pilipino</p>
+            <p>Ang iyong aral, diwa, adhikang taglay</p>
+            <p>PUP, aming gabay</p>
+            <p>Paaralang dakila</p>
+            <p>PUP, pinagpala</p>
+            <p>Gagamitin ang karunungan</p>
+            <p>Mula sa iyo, para sa bayan</p>
+            <p>Ang iyong aral, diwa, adhikang taglay</p>
+            <p>PUP, aming gabay</p>
+            <p>Paaralang dakila</p>
+            <p>PUP, pinagpala</p>
+        </div>
+    </div>
+    <audio id="hymnAudio" controls autoplay>
+        <source src="puphymn.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="footer">
+        <p>&copy; 2024 Polytechnic University of the Philippines</p>
+    </div>
+
+    <script>
+        const hymnlyrics = document.getElementById('hymnlyrics');
+        const hymnAudio = document.getElementById('hymnAudio');
+        const containerHeight = document.querySelector('.hymn-container').offsetHeight;
+
+        hymnAudio.addEventListener('loadedmetadata', () => {
+            const duration = hymnAudio.duration;
+
+            const textHeight = hymnlyrics.offsetHeight;
+            const totalScrollDistance = textHeight + containerHeight;
+
+            hymnAudio.addEventListener('timeupdate', () => {
+                const progress = hymnAudio.currentTime / duration;
+                const currentScrollPosition = 100 - progress * (totalScrollDistance / containerHeight) * 100;
+                hymnlyrics.style.top = `${currentScrollPosition}%`;
+            });
+        });
+    </script>
+</body>
+</html>
